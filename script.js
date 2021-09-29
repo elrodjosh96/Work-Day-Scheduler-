@@ -9,19 +9,48 @@ console.log("#currentDay");
 var currentHour = moment().format("H");
 console.log(currentHour);
 
-var hoursArray = [9, 10, 11, 12, 1, 2, 3, 4, 5]
+var hoursArray = [9, 10, 11, 12, 13, 14, 15, 16, 17]
 
 var timeBlockArray = $(".list-group-item");
 console.log(timeBlockArray);
 
 function compareTime() {
-    for (var i = 0; i < hoursArray.length; i++);
-    console.log(compareTime);
-    if (hoursArray[i] === currentHour) {
-        $(".list-group-item").addClass('future');
-        console.log(compareTime);
-    } else hoursArray[i] < currentHour; 
-        $(".list-group-item").addClass('past');
-        console.log(hoursArray[i])
+    console.log(hoursArray[0])
+    for (var i = 0; i < hoursArray.length; i++){
+        console.log(timeBlockArray[i]);
+    console.log(currentHour);
+        if (hoursArray[i] == currentHour) {
+            console.log('currentTime')
+            timeBlockArray[i].setAttribute('style', 'background-color: #ff6961');
+        } else if (hoursArray[i] < currentHour) {
+            console.log('past')
+            timeBlockArray[i].setAttribute('style', 'background-color: #d3d3d3');
+    } else if (hoursArray[i] > currentHour) {
+        console.log('future')
+        timeBlockArray[i].setAttribute('style', 'background-color: #77dd77');
+    }
+}
 }
 compareTime();
+// set local storage
+$('.btn').on('click', function(event){
+    event.preventDefault();
+    var userInput = $('.form-control');
+    console.log($('.form-control')[0].value);
+    for (var i = 0; i < userInput.length; i++) {
+        var dataStorage = 'hour' + i
+        console.log(dataStorage);
+        var currentData = userInput[i].value;
+        console.log(currentData);
+        localStorage.setItem(dataStorage, currentData);
+    }
+})
+// get local storage
+function retrievedUserData() {
+    var inputsEl = $('.form-control');
+    for (var i = 0; i < inputsEl.length; i++) {
+        var dataStorage = 'hour' + i;
+        inputsEl[i].value = localStorage.getItem(dataStorage);
+    }
+} 
+retrievedUserData();
